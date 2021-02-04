@@ -1,8 +1,7 @@
-use crate::data::{Profile, UserData};
+use crate::data::{Profile, ShopItem, UserData};
 
 use sled::open;
 use sled::{Db, IVec};
-
 
 pub struct Database {
     db: Db,
@@ -36,6 +35,13 @@ impl Database {
                     .ok()
                     .map(|id| Profile::new(id, item.1.into()))
             })
+    }
+
+    // i am speed
+    pub fn era_two(&self) -> bool {
+        self.get_profiles()
+            .find(|profile| profile.data.items.contains(&ShopItem::GameEraTwo))
+            .is_some()
     }
 
     pub fn from_username(&self, username: &str) -> Option<Profile> {

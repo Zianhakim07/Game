@@ -53,6 +53,14 @@ struct BuyForm {
     pub item: ShopItem,
 }
 
+fn render(name: &'static str, context: &Context) -> Template {
+    if Database::open().era_two() {
+        Template::render("era_two", context)
+    } else {
+        Template::render(name, context)
+    }
+}
+
 fn get_context(profile: &Profile) -> Context {
     let mut context = Context::new();
     context.insert("profile", &profile);
@@ -91,7 +99,7 @@ fn index(mut profile: Profile, flash: Option<FlashMessage>) -> Template {
         context.insert("message", msg);
     }
     context.insert("profile", &profile); // overwrite old profile with newly ready-set profile
-    Template::render("game", &context)
+    render("game", &context)
 }
 
 #[get("/", rank = 2)]
@@ -116,7 +124,7 @@ fn login_page(flash: Option<FlashMessage>) -> Template {
         context.insert("message", x.msg())
     }
 
-    Template::render("login", &context)
+    render("login", &context)
 }
 
 #[post("/register", data = "<form>")]
@@ -180,14 +188,19 @@ fn leaderboard(profile: Profile) -> Template {
 
     let mut context = get_context(&profile);
     context.insert("leaderboard", &sorted);
-    Template::render("leaderboard", &context)
+    render("leaderboard", &context)
 }
 
 #[get("/shop")]
 fn shop(profile: Profile) -> Template {
     let mut context = get_context(&profile);
     context.insert("shop", &ShopItem::get_display_prices(profile));
-    Template::render("shop", &context)
+    render("shop", &context)
+}
+
+#[get("/shop", rank = 2)]
+fn shop_redir() -> Redirect {
+    Redirect::to("/login")
 }
 
 #[post("/buy", data = "<form>")]
@@ -284,6 +297,7 @@ fn main() -> Result<(), NoneError> {
                 logout,
                 leaderboard,
                 shop,
+                shop_redir,
                 get,
                 buy,
             ],

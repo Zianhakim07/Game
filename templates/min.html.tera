@@ -10,6 +10,7 @@
         {% if GayButton %}
         <link rel="stylesheet" href="static/gay.css" />
         {% endif %}
+        <link rel="stylesheet" href="static/era_two.css" />
     </head>
     <body>
         {% block min_content %}{% endblock %}

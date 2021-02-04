@@ -1,6 +1,6 @@
-use std::collections::HashMap;
 use std::fmt;
 use std::hash::Hash;
+use std::{collections::HashMap};
 
 use bincode::{deserialize, serialize};
 use chrono::{DateTime, Duration, Utc};
@@ -104,6 +104,7 @@ pub enum ShopItem {
     DoubleSpeed = 3,
     FiftyFifty = 4,
     Thanos = 5,
+    GameEraTwo = 6,
 }
 
 impl ShopItem {
@@ -114,6 +115,7 @@ impl ShopItem {
         prices.insert(ShopItem::GayButton, 10);
         prices.insert(ShopItem::DoubleSpeed, 20);
         prices.insert(ShopItem::Thanos, 50);
+        prices.insert(ShopItem::GameEraTwo, 55);
         prices
     }
 

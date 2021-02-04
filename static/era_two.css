@@ -1,0 +1,38 @@
+.typing h2,
+h3 {
+  font-family: monospace;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: 0.05em; /* Adjust as needed */
+  max-width: min-content;
+}
+
+.typing h2 {
+  border-right: 0.15em solid green; /* The typwriter cursor */
+  animation: typing 7.5s steps(100, end), blink-caret 1s step-end infinite;
+  margin-top: 40vh;
+}
+
+.typing h3 {
+  animation: typing 5s steps(2, end);
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: green;
+  }
+}

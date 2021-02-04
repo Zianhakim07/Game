@@ -1,0 +1,8 @@
+{% extends "min" %}
+
+{% block min_content %}
+<div class="typing mid-v">
+    <h2>initiating game era two....</h2>
+    <h3>progress: 1%</h3>
+</form>
+{% endblock %}
